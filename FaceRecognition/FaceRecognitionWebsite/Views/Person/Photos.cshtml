@@ -1,0 +1,36 @@
+@model FaceRecognitionWebsite.Models.Person
+
+@{
+    ViewData["Title"] = $"{Model.Name}'s Photos";
+}
+
+<div class="container py-4">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">@Model.Name's Photos</h2>
+        <p class="text-muted">Below are the uploaded photos associated with @Model.Name.</p>
+    </div>
+
+    @if (Model.Images == null || !Model.Images.Any())
+    {
+        <div class="alert alert-warning text-center">
+            No photos found for this person.
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            @foreach (var img in Model.Images)
+            {
+                <div class="col">
+                    <div class="card shadow-sm border-0 h-100">
+                        <img src="@img.ImagePath" class="card-img-top" style="object-fit: cover; height: 220px;" />
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <div class="mt-4 text-center">
+        <a asp-action="Index" class="btn btn-outline-dark">← Back to Person List</a>
+    </div>
+</div>

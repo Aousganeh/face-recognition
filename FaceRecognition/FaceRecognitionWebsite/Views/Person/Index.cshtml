@@ -1,0 +1,42 @@
+@model List<FaceRecognitionWebsite.Models.Person>
+
+@{
+    ViewData["Title"] = "Person List";
+}
+
+<h2 class="mb-4 text-center">Known Persons</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning text-center">No persons found.</div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        @foreach (var person in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <h5 class="card-title mb-3">@person.Name</h5>
+
+                        <a asp-action="Photos" asp-route-id="@person.Id" class="btn btn-outline-dark btn-sm mb-2 w-100">
+                            @if (person.Images != null && person.Images.Any())
+                            {
+                                <span>View Photos (@person.Images.Count)</span>
+                            }
+                            else
+                            {
+                                <span>Add First Photo</span>
+                            }
+                        </a>
+
+                        <form asp-action="Delete" method="post" asp-route-id="@person.Id" onsubmit="return confirm('Are you sure you want to delete this person and all images?');">
+                            <button type="submit" class="btn btn-danger btn-sm w-100">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

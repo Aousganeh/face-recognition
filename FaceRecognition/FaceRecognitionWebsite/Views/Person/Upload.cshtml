@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "Upload Image";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-header bg-dark text-white text-center">
+                    <h4 class="mb-0">Upload Image for Face Recognition</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Upload" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="imageFile" class="form-label fw-semibold">Choose a clear face image</label>
+                            <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*" required />
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-dark">Upload</button>
+                        </div>
+                    </form>
+                </div>
+
+                @if (ViewBag.Message != null)
+                {
+                    <div class="card-footer bg-light text-center fw-bold text-success py-3">
+                        @ViewBag.Message
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
